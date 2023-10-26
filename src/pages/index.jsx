@@ -87,7 +87,8 @@ const Home = () => {
                   <button type='submit' className='sm:self-center xs:self-center w-44 rounded-full bg-indigo-600 text-white p-4'>Generate my Link</button>
                 </div>
                 <div className='flex items-center mt-2'>Review Link:&nbsp;
-                  <div className='flex justify-center border p-2 w-52 h-full rounded-l-md'>{reviewLink && shortLink && <a href={shortLink}>{shortLink}</a>}</div>
+                  <div className='flex justify-center border p-2 w-52 h-full rounded-l-md'>{reviewLink && shortLink && <a href={`https://${shortLink}`}>{shortLink}</a>}
+</div>
                   <CopyToClipboard text={shortLink} onCopy={() => setCopied(true)}>
                     <button className='px-4 py-2 bg-black text-white rounded-r-md h-full'>{isCopied ? 'Copied' : 'Copy'}</button>
                   </CopyToClipboard>
