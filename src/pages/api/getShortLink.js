@@ -9,6 +9,11 @@ export default async function handler(req, res) {
             }
         });
 
+        // Check the status of the response
+        if (!infoResponse.ok) {
+            throw new Error(`Error fetching info: ${infoResponse.statusText}`);
+        }
+
         const infoData = await infoResponse.json();
 
         // If the link already exists
@@ -27,10 +32,16 @@ export default async function handler(req, res) {
             body: JSON.stringify({ domain: 'trustjoy.app', url: link })
         });
 
+        // Check the status of the response
+        if (!shortenedResponse.ok) {
+            throw new Error(`Error shortening URL: ${shortenedResponse.statusText}`);
+        }
+
         const shortenedData = await shortenedResponse.json();
         if (shortenedData.error) {
             throw new Error(shortenedData.error);
         }
+
         res.json({ url: shortenedData.domain + '/' + shortenedData.key });
     } catch (error) {
         res.status(500).json({ error: error.message || 'Server error' });
