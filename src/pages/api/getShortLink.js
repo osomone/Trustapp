@@ -17,8 +17,11 @@ export default async function handler(req, res) {
             throw new Error(shortenedData.error);
         }
         
-        // Modify the response to format the URL as desired
-        res.json({ url: 'trustjoy.app/' + shortenedData.key });
+        // Extract only the key from the URL provided by the API
+        const key = shortenedData.url.split('/').pop();
+        
+        // Construct the URL using trustjoy.app and the extracted key
+        res.json({ url: 'trustjoy.app/' + key });
     } catch (error) {
         res.status(500).json({ error: error.message || 'Server error' });
     }
